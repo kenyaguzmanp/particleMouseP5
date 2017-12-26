@@ -1,8 +1,8 @@
 var particles = [];
-
+var particlesLen = 3;
 function setup() {
     cnv = createCanvas(640, 360);
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < particlesLen; i++) {
         var px = random(0, width);
         var py = random(0, height);
         var name =  "particle" + i;
@@ -29,6 +29,7 @@ function mousePressed() {
             console.log("particle " + i +"inside");
             p.color = [244, 66, 203];
         }else{
+            p.color = [127, 127, 127];
             console.log("outside");
         }
     }
