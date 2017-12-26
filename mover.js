@@ -3,11 +3,16 @@ var Mover = function (){
     this.velocity = createVector();
     this.acceleration = createVector();
     this.topspeed = 5;
+    this.radiusParticle = width/4;
+    this.centerParticle = createVector(width/2,height/2);
 
   this.update = function () {
     // Compute a vector that points from position to mouse
     var mouse = createVector(mouseX,mouseY);
+    //var dir = p5.Vector.sub(mouse,this.position);
+
     var dir = p5.Vector.sub(mouse,this.position);
+
     // this.acceleration = p5.Vector.sub(mouse,this.position);
     dir.normalize();
 
@@ -33,13 +38,14 @@ var Mover = function (){
     }
   }
 
-  this.checkDistance = function (){
-     var distance = dist(mouseX, mouseY, this.position.x, this.position.y);
+  this.checkParticleBoundary = function (){
+     var distance = Math.abs(dist(this.centerParticle.x , this.centerParticle.y, this.position.x, this.position.y));
 
-     if(distance < 3){
-         console.log("almost in");
-         //this.position.x = 0 ;
-     }
+     if(distance > this.radiusParticle){
+        console.log("out of particle border");
+        this.position.x = this.centerParticle.x;
+        this.position.y = this.centerParticle.y;
+    }
 
   }
 

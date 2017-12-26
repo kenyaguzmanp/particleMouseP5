@@ -18,6 +18,6 @@ function draw() {
   mover.update();
   mover.display();
   mover.checkEdges();
-  mover.checkDistance();
+  mover.checkParticleBoundary();
   
 }
