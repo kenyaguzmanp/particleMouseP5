@@ -1,58 +1,71 @@
-var Mover = function (){
-    this.position = createVector(width/2,height/2);
+var Mover = function () {
+    this.position = createVector(width / 2, height / 2);
     this.velocity = createVector();
     this.acceleration = createVector();
     this.topspeed = 5;
-    this.radiusParticle = width/4;
-    this.centerParticle = createVector(width/2,height/2);
+    this.radiusParticle = 50;
+    this.centerParticle = createVector(width / 2, height / 2);
 
-  this.update = function () {
-    // Compute a vector that points from position to mouse
-    var mouse = createVector(mouseX,mouseY);
-    //var dir = p5.Vector.sub(mouse,this.position);
+    this.update = function () {
+        // Compute a vector that points from position to mouse
+        var mouse = createVector(mouseX, mouseY);
+        mouse.normalize();
+        var angle = atan2(mouseY - height / 2, mouseX - width / 2);
 
-    var dir = p5.Vector.sub(mouse,this.position);
+        var px = this.radiusParticle * cos(angle) + width / 2;
+        var py = this.radiusParticle * sin(angle) + height / 2;
 
-    // this.acceleration = p5.Vector.sub(mouse,this.position);
-    dir.normalize();
+        this.position.x = px;
+        this.position.y = py;
 
-    dir.mult(0.7);
+        /*
+    
+        var dir = p5.Vector.sub(mouse,this.position);
+       
+        // this.acceleration = p5.Vector.sub(mouse,this.position);
+        dir.normalize();
+    
+        dir.mult(0.5);
+    
+        // Set magnitude of acceleration
+        //this.acceleration.setMag(0.01);
+        
+        this.acceleration =  dir;
+    
+        this.velocity.add(this.acceleration);
+        this.velocity.limit(this.topspeed);
+        this.position.add(this.velocity);
+        */
+    };
 
-    // Set magnitude of acceleration
-    //this.acceleration.setMag(0.01);
-
-    this.acceleration =  dir;
-
-    this.velocity.add(this.acceleration);
-    this.velocity.limit(this.topspeed);
-    this.position.add(this.velocity);
-  };
-
-  this.checkEdges =  function (){
-    if(this.position.x > 630 || mover.position.y > 360 ){
-        this.position.x -= 10;
-        this.position.y -= 10;
-    }else if(this.position.x < 0 || this.position.y < 0){
-        this.position.x += 10;
-        this.position.y += 10;
+    this.checkEdges = function () {
+        if (this.position.x > width || mover.position.y > height) {
+            console.log("out of edges");
+            this.position.x = 0;
+            this.position.y = 0;
+        } else if (this.position.x < 0 || this.position.y < 0) {
+            console.log("out of edges");
+            this.position.x = 0;
+            this.position.y = 0;
+        }
     }
-  }
 
-  this.checkParticleBoundary = function (){
-     var distance = Math.abs(dist(this.centerParticle.x , this.centerParticle.y, this.position.x, this.position.y));
+    this.checkParticleBoundary = function () {
+        var mouse = createVector(mouseX, mouseY);
+        mouse.normalize();
+        var angle = atan2(mouseY - height / 2, mouseX - width / 2);
 
-     if(distance > this.radiusParticle){
-        console.log("out of particle border");
-        this.position.x = this.centerParticle.x;
-        this.position.y = this.centerParticle.y;
+        var px = this.radiusParticle * cos(angle) + width / 2;
+        var py = this.radiusParticle * sin(angle) + height / 2;
+
+        this.position.x = px;
+        this.position.y = py;
     }
 
-  }
-
-  this.display = function () {
-    stroke(0);
-    strokeWeight(2);
-    fill(127);
-    ellipse(this.position.x, this.position.y, 48, 48);
-  };
+    this.display = function () {
+        stroke(0);
+        strokeWeight(2);
+        fill(127);
+        ellipse(this.position.x, this.position.y, 48, 48);
+    };
 };

@@ -8,16 +8,19 @@ function setup() {
 function draw() {
   background(51);
 
-    /*
-  if(mover.position.x > 630 || mover.position.y > 360){
-    console.log("out");
-    mover.position.x -= 10;
-    mover.position.y -= 10;
-  }
-*/
   mover.update();
   mover.display();
   mover.checkEdges();
-  mover.checkParticleBoundary();
+  //mover.checkParticleBoundary();
   
+}
+
+function mousePressed (){
+    var mouse =  createVector(mouseX,mouseY);
+    var angle = atan(mouse.y/mouse.x); 
+    var angle2 = atan2(mouseY - height / 2, mouseX - width / 2); 
+    console.log("mover position: ", mover.position);
+    console.log("mouse position: ", mouse);
+    console.log("angle: " + angle);
+    console.log("angle2: " + angle2);
 }
