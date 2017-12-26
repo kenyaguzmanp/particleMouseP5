@@ -1,8 +1,11 @@
 var mover;
+var mover2;
 
 function setup() {
-  createCanvas(640, 360);
-  mover = new Mover();
+  cnv = createCanvas(640, 360);
+  mover = new Mover(width/2,height/2);
+  mover2 = new Mover(100,100)
+  
 }
 
 function draw() {
@@ -12,7 +15,11 @@ function draw() {
   mover.display();
   mover.checkEdges();
   //mover.checkParticleBoundary();
-  
+
+  mover2.update();
+  mover2.display();
+  mover2.checkEdges();
+    
 }
 
 function mousePressed (){
