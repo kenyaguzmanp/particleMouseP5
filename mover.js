@@ -1,4 +1,4 @@
-var Mover = function (posx, posy) {
+var Mover = function (posx, posy, name) {
     this.position = createVector(posx, posy);
     this.velocity = createVector();
     this.acceleration = createVector();
@@ -6,9 +6,13 @@ var Mover = function (posx, posy) {
     this.radiusParticle = 50;
     this.centerParticle = createVector(posx, posy);
     this.theta = 0;
-    
+    this.name = name;
+    this.color = [127, 127, 127];
+   
     this.update = function () {
         this.theta +=0.03;
+        this.display();
+        this.checkEdges();
     };
 
     this.checkEdges = function () {
@@ -16,9 +20,23 @@ var Mover = function (posx, posy) {
         if (mouse.x < width && mouse.y < height) {
             //console.log("inside canvas");
             this.rotateByMouse();
+            this.checkNearParticles();
         } else  {
             //console.log("outside canvas");
             this.rotateOwn();
+        }
+    }
+
+    this.checkNearParticles = function (){
+        //console.log("checking near particles");
+        var mouse = createVector(mouseX, mouseY);
+        var d = dist(mouseX, mouseY, this.position.x, this.position.y);
+        //console.log("dis: " +d);
+        if(d<this.radiusParticle*2){
+            console.log("particle: " + this.name + "is near");
+            this.color = [244, 66, 203];
+        }else{
+            this.color = [127, 127, 127];
         }
     }
 
@@ -42,7 +60,7 @@ var Mover = function (posx, posy) {
     this.display = function () {
         stroke(0);
         strokeWeight(2);
-        fill(127);
+        fill(this.color[0], this.color[1], this.color[2]);
         ellipse(this.position.x, this.position.y, 48, 48);
     };
 };

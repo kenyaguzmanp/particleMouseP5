@@ -1,25 +1,27 @@
-var mover;
-var mover2;
+var particles = [];
 
 function setup() {
     cnv = createCanvas(640, 360);
-    mover = new Mover(width / 2, height / 2);
-    mover2 = new Mover(100, 100);
+    for (var i = 0; i < 5; i++) {
+        var px = random(0, width);
+        var py = random(0, height);
+        var name =  "particle" + i;
+       particles.push(new Mover(px, py, name));
+    }
 
 }
 
 function draw() {
     background(51);
-    mover.update();
-    mover.display();
-    mover.checkEdges();
-    //mover.checkParticleBoundary();
-
-    mover2.update();
-    mover2.display();
-    mover2.checkEdges();
-
+    for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        p.update();
+    }
 }
+
+
+
+
 
 function mousePressed() {
     var mouse = createVector(mouseX, mouseY);
