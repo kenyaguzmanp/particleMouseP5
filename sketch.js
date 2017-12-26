@@ -20,15 +20,17 @@ function draw() {
 }
 
 
-
-
-
 function mousePressed() {
-    var mouse = createVector(mouseX, mouseY);
-    var angle = atan(mouse.y / mouse.x);
-    var angle2 = atan2(mouseY - height / 2, mouseX - width / 2);
-    console.log("mover position: ", mover.position);
-    console.log("mouse position: ", mouse);
-    console.log("angle: " + angle);
-    console.log("angle2: " + angle2);
+    for (var i=0; i< particles.length; i++){
+        var p = particles[i];
+        var mouse = createVector(mouseX, mouseY);
+        var d = dist(mouseX, mouseY, p.position.x, p.position.y);
+        if(d<24){
+            console.log("particle " + i +"inside");
+            p.color = [244, 66, 203];
+        }else{
+            console.log("outside");
+        }
+    }
+    
 }

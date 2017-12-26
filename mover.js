@@ -19,7 +19,7 @@ var Mover = function (posx, posy, name) {
         var mouse = createVector(mouseX, mouseY);
         if (mouse.x < width && mouse.y < height) {
             //console.log("inside canvas");
-            this.rotateByMouse();
+            //this.rotateByMouse();
             this.checkNearParticles();
         } else  {
             //console.log("outside canvas");
@@ -31,10 +31,11 @@ var Mover = function (posx, posy, name) {
         //console.log("checking near particles");
         var mouse = createVector(mouseX, mouseY);
         var d = dist(mouseX, mouseY, this.position.x, this.position.y);
-        if(d<this.radiusParticle*2){
-            console.log("particle: " + this.name + "is near");
-            this.color = [244, 66, 203];
+        if(d<this.radiusParticle*3){
+            //this.color = [244, 66, 203];
+            this.rotateByMouse();
         }else{
+            this.rotateOwn();
             this.color = [127, 127, 127];
         }
     }
