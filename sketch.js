@@ -3,8 +3,8 @@ var particlesLen = 3;
 function setup() {
     cnv = createCanvas(640, 360);
     for (var i = 0; i < particlesLen; i++) {
-        var px = random(0, width);
-        var py = random(0, height);
+        var px = random(100, width-100);
+        var py = random(100, height-100);
         var name =  "particle" + i;
        particles.push(new Mover(px, py, name));
     }
@@ -26,12 +26,11 @@ function mousePressed() {
         var mouse = createVector(mouseX, mouseY);
         var d = dist(mouseX, mouseY, p.position.x, p.position.y);
         if(d<24){
-            console.log("particle " + i +"inside");
+            //console.log("particle " + i +"inside");
             p.color = [244, 66, 203];
         }else{
             p.color = [127, 127, 127];
-            console.log("outside");
+            //console.log("outside");
         }
-    }
-    
+    }   
 }
