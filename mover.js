@@ -23,25 +23,26 @@ var Mover = function (posx, posy, name, size) {
         if (mouse.x < width && mouse.y < height) {
             //console.log("inside canvas");
             //this.rotateByMouse();
-            this.checkNearParticles();
+           this.checkNearParticles();
         } else  {
             //console.log("outside canvas");
             this.rotateOwn();
         }
-    }
+    };
 
     this.checkNearParticles = function (){
         //console.log("checking near particles");
         var mouse = createVector(mouseX, mouseY);
         var d = dist(mouseX, mouseY, this.position.x, this.position.y);
-        if(d<this.radiusParticle*3){
+        //this.radiusParticle*3
+        if(d<100){
             //this.color = [244, 66, 203];
             this.rotateByMouse();
         }else{
             this.rotateOwn();
             this.color = [127, 127, 127];
         }
-    }
+    };
 
     this.rotateByMouse = function () {
         var mouse = createVector(mouseX, mouseY);
@@ -51,16 +52,26 @@ var Mover = function (posx, posy, name, size) {
         var py = this.radiusParticle * sin(angle) + this.centerParticle.y;
         this.position.x = px;
         this.position.y = py;
-    }
+    };
 
     this.rotateOwn = function (){
         var orbit=this.orbit;
         var amplitude = this.amplitude;
         var px = orbit*(this.radiusParticle/2) * cos(this.theta*amplitude) + this.centerParticle.x;
-        var py = orbit*(this.radiusParticle/2) * sin(this.theta*amplitude) + this.centerParticle.y;
+        var py = orbit*(this.radiusParticle/2) * sin(this.theta*amplitude)*0.1 + this.centerParticle.y;
         this.position.x = px;
         this.position.y = py;
-    }
+    };
+
+    this.handleHover = function(mx, my) { 
+        var d = dist(mx, my, this.position.x, this.position.y);
+        if (d < this.sizeParticle/2) {
+          console.log("hover: " + this.name);
+          this.color = [244, 66, 203];
+        } else {
+            this.color = [127, 127, 127];
+        }
+    };
 
     this.display = function () {
         stroke(0);
