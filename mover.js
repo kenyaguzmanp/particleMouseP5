@@ -42,7 +42,7 @@ var Mover = function (posx, posy, name, size, context) {
             this.rotateByMouse();
         }else{
             this.rotateOwn();
-            this.color = [127, 127, 127];
+           // this.color = [127, 127, 127];
         }
     };
 
@@ -83,7 +83,8 @@ var Mover = function (posx, posy, name, size, context) {
             //princiapl particle
             stroke(0);
             strokeWeight(2);
-            fill(this.color[0], this.color[1], this.color[2]);
+            //fill(this.color[0], this.color[1], this.color[2]);
+            fill(0, 168, 143);
             ellipse(this.position.x, this.position.y, size, size);
 
             //create the diagonal bar
