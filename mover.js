@@ -1,4 +1,4 @@
-var Mover = function (posx, posy, name) {
+var Mover = function (posx, posy, name, size) {
     this.position = createVector(posx, posy);
     this.velocity = createVector();
     this.acceleration = createVector();
@@ -8,6 +8,9 @@ var Mover = function (posx, posy, name) {
     this.theta = 0;
     this.name = name;
     this.color = [127, 127, 127];
+    this.sizeParticle = size;
+    this.orbit = random(0,1);
+    this.amplitude = random(1,2);
    
     this.update = function () {
         this.theta +=0.03;
@@ -51,8 +54,10 @@ var Mover = function (posx, posy, name) {
     }
 
     this.rotateOwn = function (){
-        var px = (this.radiusParticle/2) * cos(this.theta) + this.centerParticle.x;
-        var py = (this.radiusParticle/2) * sin(this.theta) + this.centerParticle.y;
+        var orbit=this.orbit;
+        var amplitude = this.amplitude;
+        var px = orbit*(this.radiusParticle/2) * cos(this.theta*amplitude) + this.centerParticle.x;
+        var py = orbit*(this.radiusParticle/2) * sin(this.theta*amplitude) + this.centerParticle.y;
         this.position.x = px;
         this.position.y = py;
     }
@@ -61,6 +66,6 @@ var Mover = function (posx, posy, name) {
         stroke(0);
         strokeWeight(2);
         fill(this.color[0], this.color[1], this.color[2]);
-        ellipse(this.position.x, this.position.y, 48, 48);
+        ellipse(this.position.x, this.position.y, size, size);
     };
 };
