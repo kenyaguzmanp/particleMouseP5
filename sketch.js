@@ -1,12 +1,13 @@
 var particles = [];
-var particlesLen = 6;
+var particlesLen = 13;
+var cnv;
 function setup() {
     cnv = createCanvas(640, 640);
     for (var i = 0; i < particlesLen; i++) {
         var px = random(100, width - 100);
         var py = random(100, height - 100);
         var name = "particle" + i;
-        var size = random(20, 50);
+        var size = random(50, 70);
         particles.push(new Mover(px, py, name, size));
     }
 

@@ -11,6 +11,7 @@ var Mover = function (posx, posy, name, size) {
     this.sizeParticle = size;
     this.orbit = random(0,1);
     this.amplitude = random(1,2);
+    this.showBar = false;
    
     this.update = function () {
         this.theta +=0.03;
@@ -66,10 +67,12 @@ var Mover = function (posx, posy, name, size) {
     this.handleHover = function(mx, my) { 
         var d = dist(mx, my, this.position.x, this.position.y);
         if (d < this.sizeParticle/2) {
-          console.log("hover: " + this.name);
+          //console.log("hover: " + this.name);
           this.color = [244, 66, 203];
+          this.showBar = true;
         } else {
             this.color = [127, 127, 127];
+            this.showBar = false;
         }
     };
 
@@ -78,5 +81,14 @@ var Mover = function (posx, posy, name, size) {
         strokeWeight(2);
         fill(this.color[0], this.color[1], this.color[2]);
         ellipse(this.position.x, this.position.y, size, size);
+        
+        if(this.showBar){
+            //create the diagonal bar
+            stroke(50, 66, 203);
+            translate(this.position.x, this.position.y);
+            rotate(PI/4);
+            rect(this.sizeParticle/2, 0, this.sizeParticle, 2); 
+        }
     };
+
 };
