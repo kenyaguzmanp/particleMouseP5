@@ -1,4 +1,4 @@
-var Mover = function (posx, posy, name, size) {
+var Mover = function (posx, posy, name, size, context) {
     this.position = createVector(posx, posy);
     this.velocity = createVector();
     this.acceleration = createVector();
@@ -12,10 +12,11 @@ var Mover = function (posx, posy, name, size) {
     this.orbit = random(0,1);
     this.amplitude = random(1,2);
     this.showBar = false;
+    this.ctx = context;
    
     this.update = function () {
         this.theta +=0.03;
-        this.display();
+        this.display(this.ctx);
         this.checkEdges();
     };
 
@@ -69,26 +70,45 @@ var Mover = function (posx, posy, name, size) {
         if (d < this.sizeParticle/2) {
           //console.log("hover: " + this.name);
           this.color = [244, 66, 203];
-          this.showBar = true;
+          this.showBar = true;         
         } else {
             this.color = [127, 127, 127];
             this.showBar = false;
         }
     };
 
-    this.display = function () {
-        stroke(0);
-        strokeWeight(2);
-        fill(this.color[0], this.color[1], this.color[2]);
-        ellipse(this.position.x, this.position.y, size, size);
-        
+    this.display = function (ctx) {
         if(this.showBar){
+            cursor(HAND);
+            //princiapl particle
+            stroke(0);
+            strokeWeight(2);
+            fill(this.color[0], this.color[1], this.color[2]);
+            ellipse(this.position.x, this.position.y, size, size);
+
             //create the diagonal bar
             stroke(50, 66, 203);
             translate(this.position.x, this.position.y);
             rotate(PI/4);
-            rect(this.sizeParticle/2, 0, this.sizeParticle, 2); 
-        }
+            rect(0, 0, this.sizeParticle, 2); 
+
+            //create intersection point
+            fill(255, 255, 255);
+            ellipse(0, 0, 10, 10);
+
+            //create the big Voice Particle
+            fill(10, 49, 84);
+            ellipse(this.sizeParticle+50, 0, 1.5*size, 1.5*size);
+
+            //create intersection point
+            fill(255, 255, 255);
+            ellipse(this.sizeParticle, 0, 10, 10);
+        }else{
+            stroke(0);
+            strokeWeight(2);
+            fill(this.color[0], this.color[1], this.color[2]);
+            ellipse(this.position.x, this.position.y, size, size);
+        }       
     };
 
 };
