@@ -20,7 +20,9 @@ function setup() {
 }
 
 function draw() {
-    background(51);
+    background(51, 51, 51, 40);
+   // background(51,51,51, 0.1);
+   // ctx.globalAlpha=0.01;
     for (var i = 0; i < particles.length; i++) {
         var p = particles[i];
         p.update();

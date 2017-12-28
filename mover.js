@@ -84,7 +84,7 @@ var Mover = function (posx, posy, name, size, context) {
             stroke(0);
             strokeWeight(2);
             //fill(this.color[0], this.color[1], this.color[2]);
-            fill(0, 168, 143);
+            fill(0, 168, 143,50);
             ellipse(this.position.x, this.position.y, size, size);
 
             //create the diagonal bar
@@ -94,20 +94,20 @@ var Mover = function (posx, posy, name, size, context) {
             rect(0, 0, this.sizeParticle, 2); 
 
             //create intersection point
-            fill(255, 255, 255);
+            fill(255, 255, 255,50);
             ellipse(0, 0, 10, 10);
 
             //create the big Voice Particle
-            fill(10, 49, 84);
+            fill(10, 49, 84,50);
             ellipse(this.sizeParticle+50, 0, 1.5*size, 1.5*size);
 
             //create intersection point
-            fill(255, 255, 255);
+            fill(255, 255, 255,50);
             ellipse(this.sizeParticle, 0, 10, 10);
         }else{
             stroke(0);
             strokeWeight(2);
-            fill(this.color[0], this.color[1], this.color[2]);
+            fill(this.color[0], this.color[1], this.color[2],50);
             ellipse(this.position.x, this.position.y, size, size);
         }       
     };
